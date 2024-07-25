@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Essential Linux Commands for Everyday Use"
-date: 2024-07-22 14:00:00 +0300
+date: 2024-02-11
 categories: linux tutorial
 ---
 
