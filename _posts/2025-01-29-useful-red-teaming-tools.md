@@ -1,97 +1,143 @@
 ---
-title: "Orange Belt Cryptography Module Progress"
-date: 2024-12-18 22:15:00 -0700
-categories: [Cybersecurity, Cryptography]
-tags: [pwn.college, progress, cryptography]
+title: "Useful Red Teaming Tools"
+date: 2025-01-29 00:00:00 -0700
+categories: [Red Teaming, Cybersecurity]
+tags: [red teaming, tools, hacking, penetration testing]
 ---
 
-# Orange Belt Cryptography Module Progress
+# Useful Red Teaming Tools
 
-## Overview
+## 1. Cobalt Strike
+**What It Does:**  
+A command-and-control (C2) framework used for red team operations and adversary simulation. It enables payload generation, beacon deployment, lateral movement, and post-exploitation tasks.
 
-The **Orange Belt Cryptography module** on [pwn.college](https://pwn.college){:target="_blank" rel="noopener noreferrer"} focuses on enhancing cryptographic skills through practical challenges. This module covers topics such as symmetric encryption, asymmetric encryption, and hashing algorithms, helping learners develop both theoretical and practical expertise in cryptography.
+**How to Check If It's Running:**
+```bash
+ps aux | grep teamserver
+sudo systemctl status teamserver
+```
 
----
+## 2. dnscan
+**What It Does:**  
+A tool used for brute-force subdomain enumeration by querying DNS records.
 
-## Learning Objectives
+**How to Use:**  
+```bash
+python3 dnscan.py -d target-domain.com -w subdomains.txt -o results.txt
+```
 
-Through this module, I aimed to achieve:
-- A solid understanding of cryptographic principles.
-- Hands-on experience with encryption and decryption.
-- The ability to apply cryptographic techniques in problem-solving.
+## 3. Spoofy
+**What It Does:**  
+A tool for assessing domain spoofability based on SPF and DMARC records.
 
----
+**How to Use:**  
+```bash
+python3 spoofy.py -d target-domain.com -o stdout
+```
 
-## Approach
+## 4. Amass
+**What It Does:**  
+A reconnaissance tool for mapping a domain's attack surface using DNS enumeration.
 
-### General Strategy
-1. **Review Concepts**: Studied foundational topics in cryptography (e.g., AES, RSA, hashing).
-2. **Break Down Challenges**: Simplified each problem into smaller, manageable tasks.
-3. **Utilize Tools**: Employed cryptographic libraries and tools for encryption and decryption (e.g., Python’s `cryptography` library).
-4. **Iterative Debugging**: Tested solutions incrementally to validate each step.
+**How to Use:**  
+```bash
+amass enum -d target-domain.com
+```
 
-### Tools and Resources
-- **Programming Languages**: Python and Bash.
-- **Cryptographic Libraries**: OpenSSL, `cryptography`.
-- **Learning Materials**: Module lectures, documentation, and online references.
+## 5. Sublist3r
+**What It Does:**  
+A Python-based tool for discovering subdomains using search engines and brute force.
 
----
+**How to Use:**  
+```bash
+python3 sublist3r.py -d target-domain.com
+```
 
-## Reflections
+## 6. MailSniper
+**What It Does:**  
+A tool for testing password spraying attacks against Office 365 and Exchange services, allowing attackers to check for valid credentials.
 
-### Key Insights
-- **Symmetric vs. Asymmetric Encryption**: Grasped the practical applications of each approach.
-- **Importance of Hashing**: Understood how hashing ensures data integrity and security.
-- **Key Management**: Learned the critical role of secure key storage and handling.
+**How to Use:**  
+```powershell
+Import-Module .\MailSniper.ps1
+Invoke-SprayOWA -UserList users.txt -Password Password123 -Domain mail.target.com
+```
 
-### Challenges Faced
-- **Complex Key Exchanges**: Decoding how public and private keys work together required deeper exploration.
-- **Debugging Cryptographic Code**: Identifying issues in encryption/decryption logic was often tricky but rewarding.
+## 7. SprayingToolkit
+**What It Does:**  
+A tool designed for performing password spraying attacks on various services, including Office 365.
 
----
+**How to Use:**  
+```powershell
+Invoke-PasswordSprayO365 -Users users.txt -Password Password123!
+```
 
-## Update: Opening External Links in a New Tab
+## 8. Hunter.io
+**What It Does:**  
+An online service that gathers email addresses associated with a given domain for reconnaissance and social engineering.
 
-To enhance user experience, I’ve ensured that external links, such as [pwn.college](https://pwn.college){:target="_blank" rel="noopener noreferrer"}, now open in a new tab. This prevents users from unintentionally navigating away from the current page. Here’s how I implemented it:
+**How to Use:**  
+Visit [Hunter.io](https://hunter.io) and input a domain to retrieve email addresses and associated details.
 
-### Method
-1. **Manual Markdown Syntax**:
-   - For each external link, I added:
-     ```markdown
-     {:target="_blank" rel="noopener noreferrer"}
-     ```
-   - Example:
-     ```markdown
-     [pwn.college](https://pwn.college){:target="_blank" rel="noopener noreferrer"}
-     ```
+## 9. Dig (Linux DNS Tool)
+**What It Does:**  
+A built-in Linux tool for querying DNS records, including MX, A, and TXT records.
 
-2. **Optional Automation with Jekyll Plugin**:
-   - Created a custom plugin (`_plugins/external_links.rb`) to automatically add these attributes to external links.
-   - See my [guide on the implementation](#).
+**How to Use:**  
+```bash
+dig ANY target-domain.com
+dig TXT target-domain.com
+```
 
----
+## 10. WhatWeb
+**What It Does:**  
+A reconnaissance tool that fingerprints web technologies, detecting CMS platforms, web servers, and security mechanisms.
 
-## Ethical Considerations
+**How to Use:**  
+```bash
+whatweb https://target-domain.com
+```
 
-In line with the principles of academic integrity, this post avoids revealing specific solutions or challenge details. The purpose is to document my learning process without compromising the learning experience for others.
+## 11. o365enum
+**What It Does:**  
+A tool used for enumerating valid Office 365 email addresses by analyzing responses from login pages.
 
----
+**How to Use:**  
+```bash
+python3 o365enum.py -d target-domain.com -u userlist.txt
+```
 
-## Conclusion
+## 12. Wireshark
+**What It Does:**  
+A network packet analyzer used to capture and inspect traffic for reconnaissance and troubleshooting.
 
-Completing the Orange Belt Cryptography module has been a significant step in my cybersecurity journey. The module provided valuable insights into cryptographic concepts and equipped me with practical skills for tackling real-world problems.
+**How to Use:**  
+```bash
+wireshark -k -i eth0
+```
 
----
+## 13. ProxyLogon & ProxyShell Exploit Tools
+**What They Do:**  
+Exploit known vulnerabilities in Microsoft Exchange to gain remote access.
 
-## Next Steps
+**How to Check if a Target is Vulnerable:**  
+```bash
+nmap -p 443 --script http-vuln-cve2021-26855 target-ip
+```
 
-Looking ahead, I plan to:
-- Dive deeper into advanced cryptographic techniques.
-- Apply these skills in Capture The Flag (CTF) competitions.
-- Continue progressing through pwn.college modules.
+## 14. Nmap
+**What It Does:**  
+A network scanning tool used to identify open ports, running services, and potential vulnerabilities.
 
-For those considering this module, I highly recommend it as a hands-on way to learn cryptography in a controlled and engaging environment.
+**How to Use:**  
+```bash
+nmap -A -T4 target-ip
+```
 
----
+## 15. SecurityTrails
+**What It Does:**  
+An online service for querying domain intelligence, subdomains, historical DNS records, and leaked credentials.
 
-*This post reflects my personal journey and is crafted to maintain the integrity and ethics of the pwn.college platform.*
+**How to Use:**  
+Visit [SecurityTrails](https://securitytrails.com) and search for a domain to analyze its data footprint.
+```
